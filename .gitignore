@@ -1,4 +1,20 @@
 # Python cache files
 __pycache__/
 *.pyc
+*.o
+*.out
+
+# Temporary
 *.docx
+
+# Volumes
+/Cassandra/cassandra_data
+/PostgreSQL/postgresql_data
+
+# Others
+logs/
+*.log
+*.bak
+*.backup
+build/
+dist/
