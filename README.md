@@ -24,7 +24,11 @@ All services include their own init scripts. There is **no need to create tables
 
 ### Cassandra
 
+Cassandra contains 2 tables. One of the tables contains visited products, while the other contains orders. Their names are *product_views* and *order_views*.
 
+productviews Keyspace
+product_views          =>     messageid TEXT    |   event TEXT      |   userid TEXT      |   productid TEXT   |   source TEXT  |   messagetime TIMESTAMP
+order_views            =>     orderid TEXT      |   productid TEXT  |   categoryid TEXT  |   quantity INT     |   userid TEXT  |   messagetime TIMESTAMP
 
 ### Airflow
 
