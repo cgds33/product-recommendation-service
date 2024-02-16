@@ -21,7 +21,7 @@ if [[ ! -z "$CASSANDRA_KEYSPACE" && $1 = 'cassandra' ]]; then
           productid TEXT,
           source TEXT,
           messagetime TIMESTAMP,
-          PRIMARY KEY (userid, messageid, messagetime)
+          PRIMARY KEY (userid, productid, messageid, messagetime)
         );
 		
 		CREATE TABLE IF NOT EXISTS order_views (
