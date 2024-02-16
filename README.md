@@ -63,6 +63,15 @@ They are as follows:
 - The endpoints receive the "user-id" parameter in the header.
 
 
+### PostgreSQL
+
+
+![PostgreSQL_Tables](/Documantation/Drawings/product_match.png)
+
+
+During the ETL process, data is extracted from PostgreSQL. There are 3 tables in PostgreSQL as shown in the diagram. Additionally, PostgreSQL also stores Django data in a separate database.
+
+
 ## Test And Development
 
 ### .Devcontainer 
