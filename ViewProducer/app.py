@@ -18,12 +18,16 @@ producer = KafkaProducer(
     request_timeout_ms=5000
 )
 
-with open('product-views.json', 'r') as file:
-    lines = file.readlines()
+def main():
+    with open('product-views.json', 'r') as file:
+        lines = file.readlines()
 
-for line in lines:
-    data = json.loads(line)
-    producer.send(TOPIC_NAME, value=data)
-    time.sleep(1)
-        
+    for line in lines:
+        data = json.loads(line)
+        producer.send(TOPIC_NAME, value=data)
+        time.sleep(1)
+
+if __name__ == "__main__":
+    main()
+
 producer.close()

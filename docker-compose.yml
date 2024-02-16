@@ -16,6 +16,7 @@ x-airflow-common:
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:5.0.0
+    container_name: zookeeper
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
     networks:
@@ -23,6 +24,7 @@ services:
 
   kafka:
     image: confluentinc/cp-kafka:5.0.0
+    container_name: kafka
     networks:
       - ecommerce-network
     ports:
@@ -43,6 +45,7 @@ services:
   postgresdb:
     image: postgres:14.1-alpine
     restart: always
+    container_name: postgresdb
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
@@ -80,6 +83,7 @@ services:
     build:
       context: ./ViewProducer
       dockerfile: Dockerfile
+    container_name: view_producer
     restart: on-failure
     networks:
       - ecommerce-network
@@ -93,11 +97,28 @@ services:
     build:
       context: ./StreamReader
       dockerfile: Dockerfile
+    container_name: stream_reader
     restart: on-failure
     networks:
       - ecommerce-network
     depends_on:
       - view_producer
+
+  productmatch_django:
+    build:
+      context: ./ProductMatch
+      dockerfile: Dockerfile
+    container_name: productmatch_django
+    restart: on-failure
+    networks:
+      - ecommerce-network
+    ports:
+      - 8000:8000
+    depends_on:
+      cassandra:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
 
   airflow-init:
     << : *airflow-common

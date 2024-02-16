@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "48b24fcd-44fa-4d98-98c3-ba32d2ef4568",
+		"name": "ProductMatch",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "14401967"
+	},
+	"item": [
+		{
+			"name": "get_nav_history_latest",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user-id",
+						"value": "{{user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/{{api-version}}/user_nav_history_latest_products/",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"{{api-version}}",
+						"user_nav_history_latest_products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "del_nav_history_latest",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "user-id",
+						"value": "{{user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/{{api-version}}/user_nav_history_latest_products/",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"{{api-version}}",
+						"user_nav_history_latest_products",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get_user_history_rec",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "user-id",
+						"value": "{{user-id}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://{{host}}:{{port}}/api/{{api-version}}/user_history_recommendations/",
+					"protocol": "http",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"api",
+						"{{api-version}}",
+						"user_history_recommendations",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "127.0.0.1",
+			"type": "string"
+		},
+		{
+			"key": "port",
+			"value": "8000",
+			"type": "string"
+		},
+		{
+			"key": "user-id",
+			"value": "user-39",
+			"type": "string"
+		},
+		{
+			"key": "api-version",
+			"value": "v1",
+			"type": "string"
+		}
+	]
+}
