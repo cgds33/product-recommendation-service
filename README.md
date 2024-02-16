@@ -68,7 +68,7 @@ They are as follows:
 
 - The endpoints receive the "user-id" parameter in the header.
 
-<br><br>
+<br>
 
 ### PostgreSQL
 
