@@ -1,4 +1,17 @@
-version: '2'
+version: '3.5'
+x-airflow-common:
+  &airflow-common
+  build: 
+    context: ./Airflow
+    dockerfile: Dockerfile
+  environment:
+    - _PIP_ADDITIONAL_REQUIREMENTS=apache-airflow-providers-apache-hdfs psycopg2-binary cassandra cassandra-driver azure azure-storage-blob
+  volumes:
+    - ./Airflow/airflow_data/logs:/opt/airflow/logs
+    - ./Airflow/airflow_data/plugins:/opt/airflow/plugins
+    - ./Airflow/airflow_data/airflow.cfg:/opt/airlfow/airflow.cfg
+  depends_on:
+    - postgresdb
 
 services:
   zookeeper:
@@ -19,6 +32,11 @@ services:
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
       KAFKA_AUTO_CREATE_TOPICS_ENABLE: "true"
+    healthcheck:
+      test: ["CMD-SHELL", "nc -z kafka 9092"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
     depends_on:
       - zookeeper
 
@@ -28,21 +46,23 @@ services:
     environment:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=123456
+      - POSTGRES_INIT_SCRIPTS:on
     ports:
       - '5432:5432'
+    volumes:
+      - ./PostgreSQL/init.sh:/docker-entrypoint-initdb.d/init.sh
+      - ./PostgreSQL/postgresql_data:/var/lib/postgresql/data
     networks:
       - ecommerce-network
-    volumes:
-      - ./PostgreSQL/init.sql:/docker-entrypoint-initdb.d/init.sql
-      - ./PostgreSQL/postgresql_data:/var/lib/postgresql/data
 
   cassandra:
-    image: cassandra:4.1.3-jammy
+    build: 
+      context: ./Cassandra
+      dockerfile: Dockerfile
     container_name: cassandra
     ports:
       - "9042:9042"
     volumes:
-      - ./Cassandra/init.cql:/docker-entrypoint-initdb.d/init.cql
       - ./Cassandra/cassandra_data:/var/lib/cassandra
     environment:
       - MAX_HEAP_SIZE=512M
@@ -50,34 +70,70 @@ services:
     restart: always
     networks:
       - ecommerce-network
-    depends_on:
-      - kafka
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
 
-  redis:
-    image: redis:6.2.14
-    container_name: redis
-    ports:
-      - "6379:6379"
+  view_producer:
+    build:
+      context: ./ViewProducer
+      dockerfile: Dockerfile
+    restart: on-failure
     networks:
       - ecommerce-network
-    command: redis-server --databases 1
+    depends_on:
+      cassandra:
+        condition: service_healthy
+      kafka:
+        condition: service_healthy
 
-  #celery_worker:
-  #  build: 
-  #    context: .
-  #    dockerfile: ProductLoader/Dockerfile
-  #  container_name: celery_worker
-  #  depends_on:
-  #    - redis
-  #    - influxdb
-  #    - postgresdb
-  #  environment:
-  #    - REDIS_HOST=redis
-  #    - INFLUXDB_HOST=influxdb
-  #    - POSTGRESQL_HOST=postgresdb
-  #  command: celery -A etl_tasks worker --loglevel=info
-  #  networks:
-  #    - ecommerce-network
+  stream_reader:
+    build:
+      context: ./StreamReader
+      dockerfile: Dockerfile
+    restart: on-failure
+    networks:
+      - ecommerce-network
+    depends_on:
+      - view_producer
+
+  airflow-init:
+    << : *airflow-common
+    container_name: airflow_init
+    entrypoint: /bin/bash
+    command:
+      - -c
+      - airflow users list || ( airflow db init &&
+        airflow users create
+          --role Admin
+          --username airflow
+          --password airflow
+          --email airflow@airflow.com
+          --firstname airflow
+          --lastname airflow )
+    restart: on-failure
+    networks:
+      - ecommerce-network
+
+  airflow-webserver:
+    << : *airflow-common
+    command: airflow webserver
+    ports:
+      - 8080:8080
+    container_name: airflow_webserver
+    restart: always
+    networks:
+      - ecommerce-network
+
+  airflow-scheduler:
+    << : *airflow-common
+    command: airflow scheduler
+    container_name: airflow_scheduler
+    restart: always
+    networks:
+      - ecommerce-network
 
 networks:
   ecommerce-network:

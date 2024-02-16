@@ -1,0 +1,54 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python: Django - Runserver",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
+            "args": [
+                "runserver",
+                "0.0.0.0:8000"
+            ],
+            "django": true,
+            "env": {
+                "PYTHONUNBUFFERED": "1",
+                "DJANGO_SETTINGS_MODULE": "ProductMatch.settings"
+            },
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "Python: Django - Migrate",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
+            "args": [
+                "migrate"
+            ],
+            "django": true,
+            "env": {
+                "PYTHONUNBUFFERED": "1",
+                "DJANGO_SETTINGS_MODULE": "ProductMatch.settings"
+            },
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}",
+        },
+        {
+            "name": "Python: Django - Makemigrations",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/manage.py",
+            "args": [
+                "makemigrations"
+            ],
+            "django": true,
+            "env": {
+                "PYTHONUNBUFFERED": "1",
+                "DJANGO_SETTINGS_MODULE": "ProductMatch.settings"
+            },
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}",
+        }
+    ]
+}

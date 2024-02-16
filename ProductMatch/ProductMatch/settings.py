@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-import os
 import environ
 
 env = environ.Env()
@@ -44,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'API_Services',
     'rest_framework',
+    #'django_cassandra_engine',
 ]
 
 MIDDLEWARE = [
@@ -83,14 +83,19 @@ WSGI_APPLICATION = 'ProductMatch.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': env("DB_NAME"),
-        'USER': env("DB_USER"),
-        'PASSWORD': env("DB_PASSWORD"),
-        'HOST': env("DB_HOST"),
-        'PORT': env("DB_PORT"),
+        'NAME': env("POSTGRES_DB_NAME"),
+        'USER': env("POSTGRES_DB_USER"),
+        'PASSWORD': env("POSTGRES_DB_PASSWORD"),
+        'HOST': env("POSTGRES_DB_HOST"),
+        'PORT': env("POSTGRES_DB_PORT"),
     }
 }
 
+# Cassandra
+CASSANDRA_HOST=env("CASSANDRA_HOST")
+CASSANDRA_PORT=env("CASSANDRA_PORT")
+CASSANDRA_KEYSPACE=env("CASSANDRA_KEYSPACE")
+CASSANDRA_TABLE=env("CASSANDRA_TABLE")
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
