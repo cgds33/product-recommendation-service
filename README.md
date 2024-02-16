@@ -9,10 +9,11 @@ This is a real-time recommendation engine that can operate within an e-commerce 
 ```bash
 docker-compose up -d --build
 ```
-
-
+<br>
 
 ## Architecture
+
+<br>
 
 ![Architecture](/Documantation/Drawings/product_match.png)
 
@@ -21,6 +22,8 @@ This platform reads products from a JSON file, sends them to Kafka first, and th
 
 
 All services include their own init scripts. There is **no need to create tables or configure anything** in any database. These processes occur during the initial build of the containers.
+
+<br>
 
 ### Cassandra
 
@@ -39,38 +42,54 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 | - orderid TEXT - - | - productid TEXT - | - categoryid TEXT - | - quantity INT - - | - userid TEXT - | - messagetime TIMESTAMP
 
+<br>
+
 ### Airflow
 
-
 Airflow operates with all initialization configurations. Both scheduling settings and the web server come active. Additionally, the Python file that will manage ETL processes is included and starts running when the container is up.
+
+<br>
 
 ### Kafka
 
 Kafka is the pipeline that transfers the click data it reads to the database. Here, the queued data arrives at the container responsible for loading data into Cassandra.
 
+<br>
+
 ### Django
-
-
 
 Django contains two endpoints facilitating the retrieval of recommendation data.
 
 They are as follows:
 
+
+
 **/api/{{api_version}}/user_nav_history_latest_products/** *(HTTP: GET, DELETE)*
+
+**GET Method**
+- Returns the last 10 products from my browsing history, sorted by viewing date.
+- Receives the "user-id" parameter in the header and returns a JSON with "user-id", "products", and "type" keys. "products" returns 10 different product recommendations.
+
+**DELETE Method**
+- Receives the "user-id" and "product-id" parameters in the header.
+
+
 
 **/api/{{api_version}}/user_history_recommendations/** *(HTTP: GET)*
 
-- The endpoints receive the "user-id" parameter in the header.
+**GET Method**
+- Understands a user's interest based on browsing history items and recommends 10 products. If the user has no browsing history, returns the top-selling products of the previous month.
+Receives the "user-id" parameter in the header and returns a JSON with "user-id", "products", and "type" keys. "products" returns 10 different product recommendations.
 
+<br>
 
 ### PostgreSQL
 
-
-![PostgreSQL_Tables](/Documantation/Drawings/product_match.png)
-
+![PostgreSQL_Tables](/Documantation/Drawings/postgresql_tables.png)
 
 During the ETL process, data is extracted from PostgreSQL. There are 3 tables in PostgreSQL as shown in the diagram. Additionally, PostgreSQL also stores Django data in a separate database.
 
+<br><br>
 
 ## Test And Development
 
@@ -88,7 +107,17 @@ All containers contain devcontainer files, enabling remote connections from with
 The Postman collections for testing API endpoints are available within the repository. The folder structure is as follows:
 
 
-/Documantation/Postman
+*/Documantation/Postman*
 
 
 You can find the Postman collections in the "Postman" folder located within the "Documentation" directory of the repository.
+
+<br><br><br><br>
+
+
+
+
+
+
+
+
