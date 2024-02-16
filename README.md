@@ -62,11 +62,24 @@ Django contains two endpoints facilitating the retrieval of recommendation data.
 
 They are as follows:
 
+
+
 **/api/{{api_version}}/user_nav_history_latest_products/** *(HTTP: GET, DELETE)*
+
+**GET Method**
+- Returns the last 10 products from my browsing history, sorted by viewing date.
+- Receives the "user-id" parameter in the header and returns a JSON with "user-id", "products", and "type" keys. "products" returns 10 different product recommendations.
+
+**DELETE Method**
+- Receives the "user-id" and "product-id" parameters in the header.
+
+
 
 **/api/{{api_version}}/user_history_recommendations/** *(HTTP: GET)*
 
-- The endpoints receive the "user-id" parameter in the header.
+**GET Method**
+- Understands a user's interest based on browsing history items and recommends 10 products. If the user has no browsing history, returns the top-selling products of the previous month.
+Receives the "user-id" parameter in the header and returns a JSON with "user-id", "products", and "type" keys. "products" returns 10 different product recommendations.
 
 <br>
 
