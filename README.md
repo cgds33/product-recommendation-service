@@ -12,6 +12,7 @@ docker-compose up -d --build
 
 
 
+
 ## Architecture
 
 ![Architecture](/Documantation/Drawings/product_match.png)
@@ -21,6 +22,9 @@ This platform reads products from a JSON file, sends them to Kafka first, and th
 
 
 All services include their own init scripts. There is **no need to create tables or configure anything** in any database. These processes occur during the initial build of the containers.
+
+
+
 
 ### Cassandra
 
@@ -39,14 +43,20 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 | - orderid TEXT - - | - productid TEXT - | - categoryid TEXT - | - quantity INT - - | - userid TEXT - | - messagetime TIMESTAMP
 
+
+
 ### Airflow
 
 
 Airflow operates with all initialization configurations. Both scheduling settings and the web server come active. Additionally, the Python file that will manage ETL processes is included and starts running when the container is up.
 
+
+
 ### Kafka
 
 Kafka is the pipeline that transfers the click data it reads to the database. Here, the queued data arrives at the container responsible for loading data into Cassandra.
+
+
 
 ### Django
 
@@ -88,7 +98,17 @@ All containers contain devcontainer files, enabling remote connections from with
 The Postman collections for testing API endpoints are available within the repository. The folder structure is as follows:
 
 
-/Documantation/Postman
+*/Documantation/Postman*
 
 
 You can find the Postman collections in the "Postman" folder located within the "Documentation" directory of the repository.
+
+
+
+
+
+
+
+
+
+
