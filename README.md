@@ -33,7 +33,7 @@ productviews Keyspace - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 product_views - => | - messageid TEXT - | - event TEXT - - - | - userid TEXT - - - | - productid TEXT - | - source TEXT - | - messagetime TIMESTAMP
 
 
-order_views -   => | - orderid TEXT - - | - productid TEXT - | - categoryid TEXT - | - quantity INT - - | - userid TEXT - | - messagetime TIMESTAMP
+order_views - - => | - orderid TEXT - - | - productid TEXT - | - categoryid TEXT - | - quantity INT - - | - userid TEXT - | - messagetime TIMESTAMP
 
 ### Airflow
 
