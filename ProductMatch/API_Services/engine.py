@@ -22,12 +22,12 @@ def get_nav_history_latest(userid):
         products.append(row.productid)
     return products
 
-def delete_nav_history(userid):
+def delete_nav_history(userid, productid):
 
     session.execute(
         f"""
             DELETE FROM product_views
-            WHERE userid = '{userid}';
+            WHERE userid = '{userid}' AND productid = '{productid}';
         """
     )
     return
@@ -38,7 +38,6 @@ def history_recommendations(userid):
         SELECT productid
         FROM product_views
         WHERE userid = '{userid}'
-        ALLOW FILTERING;
         """
     )
     top_10_products = Counter(map(lambda row: row.productid, rows)).most_common(10)

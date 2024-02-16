@@ -18,7 +18,7 @@
 					}
 				],
 				"url": {
-					"raw": "http://{{host}}:{{port}}/api/{{api-version}}/user_nav_history_latest_products/",
+					"raw": "http://{{host}}:{{port}}/api/{{api-version}}/user_nav_history_latest_products",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -27,8 +27,7 @@
 					"path": [
 						"api",
 						"{{api-version}}",
-						"user_nav_history_latest_products",
-						""
+						"user_nav_history_latest_products"
 					]
 				}
 			},
@@ -43,10 +42,15 @@
 						"key": "user-id",
 						"value": "{{user-id}}",
 						"type": "text"
+					},
+					{
+						"key": "product-id",
+						"value": "{{product-id}}",
+						"type": "text"
 					}
 				],
 				"url": {
-					"raw": "http://{{host}}:{{port}}/api/{{api-version}}/user_nav_history_latest_products/",
+					"raw": "http://{{host}}:{{port}}/api/{{api-version}}/user_nav_history_latest_products",
 					"protocol": "http",
 					"host": [
 						"{{host}}"
@@ -55,8 +59,7 @@
 					"path": [
 						"api",
 						"{{api-version}}",
-						"user_nav_history_latest_products",
-						""
+						"user_nav_history_latest_products"
 					]
 				}
 			},
@@ -130,6 +133,11 @@
 		{
 			"key": "api-version",
 			"value": "v1",
+			"type": "string"
+		},
+		{
+			"key": "product-id",
+			"value": "product-773",
 			"type": "string"
 		}
 	]
