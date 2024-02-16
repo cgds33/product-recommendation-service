@@ -66,7 +66,7 @@ They are as follows:
 ### PostgreSQL
 
 
-![PostgreSQL_Tables](/Documantation/Drawings/product_match.png)
+![PostgreSQL_Tables](/Documantation/Drawings/postgresql_tables.png)
 
 
 During the ETL process, data is extracted from PostgreSQL. There are 3 tables in PostgreSQL as shown in the diagram. Additionally, PostgreSQL also stores Django data in a separate database.
