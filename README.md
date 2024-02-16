@@ -64,7 +64,7 @@ Django contains two endpoints facilitating the retrieval of recommendation data.
 
 They are as follows:
 
-
+<br>
 
 **/api/{{api_version}}/user_nav_history_latest_products/** *(HTTP: GET, DELETE)*
 
@@ -75,7 +75,7 @@ They are as follows:
 **DELETE Method**
 - Receives the "user-id" and "product-id" parameters in the header.
 
-
+<br>
 
 **/api/{{api_version}}/user_history_recommendations/** *(HTTP: GET)*
 
