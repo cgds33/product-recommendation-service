@@ -1,7 +1,7 @@
-## Real-Time Recommendation Engine for E-commerce Platform
+# Real-Time Recommendation Engine for E-commerce Platform
 
 
-## Summary
+# Summary
 
 
 This is a real-time recommendation engine that can operate within an e-commerce platform. It encompasses ETL processes, a Q mechanism, and Time Series databases. It operates with a Docker-compose file. To initiate, type the following command:
@@ -11,7 +11,7 @@ docker-compose up -d --build
 ```
 <br>
 
-## Architecture
+# Architecture
 
 <br>
 
@@ -91,7 +91,7 @@ During the ETL process, data is extracted from PostgreSQL. There are 3 tables in
 
 <br><br>
 
-## Test And Development
+# Test And Development
 
 ### .Devcontainer 
 
