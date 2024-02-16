@@ -9,7 +9,7 @@ This is a real-time recommendation engine that can operate within an e-commerce 
 ```bash
 docker-compose up -d --build
 ```
-<br><br>
+<br>
 
 ## Architecture
 
