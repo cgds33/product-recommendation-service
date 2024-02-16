@@ -9,9 +9,7 @@ This is a real-time recommendation engine that can operate within an e-commerce 
 ```bash
 docker-compose up -d --build
 ```
-
-
-
+<br><br>
 
 ## Architecture
 
@@ -23,8 +21,7 @@ This platform reads products from a JSON file, sends them to Kafka first, and th
 
 All services include their own init scripts. There is **no need to create tables or configure anything** in any database. These processes occur during the initial build of the containers.
 
-
-
+<br><br>
 
 ### Cassandra
 
@@ -32,6 +29,7 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 
 *Keyspace = productviews* 
+
 
 
 **product_views**
@@ -43,24 +41,22 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 | - orderid TEXT - - | - productid TEXT - | - categoryid TEXT - | - quantity INT - - | - userid TEXT - | - messagetime TIMESTAMP
 
-
+<br><br>
 
 ### Airflow
 
 
 Airflow operates with all initialization configurations. Both scheduling settings and the web server come active. Additionally, the Python file that will manage ETL processes is included and starts running when the container is up.
 
-
+<br><br>
 
 ### Kafka
 
 Kafka is the pipeline that transfers the click data it reads to the database. Here, the queued data arrives at the container responsible for loading data into Cassandra.
 
-
+<br><br>
 
 ### Django
-
-
 
 Django contains two endpoints facilitating the retrieval of recommendation data.
 
@@ -72,6 +68,7 @@ They are as follows:
 
 - The endpoints receive the "user-id" parameter in the header.
 
+<br><br>
 
 ### PostgreSQL
 
@@ -81,6 +78,7 @@ They are as follows:
 
 During the ETL process, data is extracted from PostgreSQL. There are 3 tables in PostgreSQL as shown in the diagram. Additionally, PostgreSQL also stores Django data in a separate database.
 
+<br><br>
 
 ## Test And Development
 
@@ -103,7 +101,7 @@ The Postman collections for testing API endpoints are available within the repos
 
 You can find the Postman collections in the "Postman" folder located within the "Documentation" directory of the repository.
 
-
+<br><br><br><br>
 
 
 
