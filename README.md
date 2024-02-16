@@ -23,7 +23,7 @@ This platform reads products from a JSON file, sends them to Kafka first, and th
 
 All services include their own init scripts. There is **no need to create tables or configure anything** in any database. These processes occur during the initial build of the containers.
 
-<br><br>
+<br>
 
 ### Cassandra
 
@@ -42,20 +42,19 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 | - orderid TEXT - - | - productid TEXT - | - categoryid TEXT - | - quantity INT - - | - userid TEXT - | - messagetime TIMESTAMP
 
-<br><br>
+<br>
 
 ### Airflow
 
-
 Airflow operates with all initialization configurations. Both scheduling settings and the web server come active. Additionally, the Python file that will manage ETL processes is included and starts running when the container is up.
 
-<br><br>
+<br>
 
 ### Kafka
 
 Kafka is the pipeline that transfers the click data it reads to the database. Here, the queued data arrives at the container responsible for loading data into Cassandra.
 
-<br><br>
+<br>
 
 ### Django
 
