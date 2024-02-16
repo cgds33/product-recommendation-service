@@ -16,7 +16,15 @@ docker-compose up -d --build
 
 ![Architecture](/Documantation/Drawings/product_match.png)
 
+
+This platform reads products from a JSON file, sends them to Kafka first, and then stores them in a time series database. ETL processes manage the data flow between PostgreSQL and Cassandra. Django exposes recommended data through API services. All services run within Docker containers.
+
+
+All services include their own init scripts. There is **no need to create tables or configure anything** in any database. These processes occur during the initial build of the containers.
+
 ### Cassandra
+
+
 
 ### Airflow
 
