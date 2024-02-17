@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 cluster = Cluster(['cassandra'])
 session = cluster.connect('productviews')
 
-
+## Recent history: The last 10 products will be returned and sorted by viewing date
 def get_nav_history_latest(userid):
 
     rows = session.execute(
@@ -22,6 +22,7 @@ def get_nav_history_latest(userid):
         products.append(row.productid)
     return products
 
+## Delete history: A function where they can delete a product from their history
 def delete_nav_history(userid, productid):
 
     session.execute(
@@ -32,6 +33,8 @@ def delete_nav_history(userid, productid):
     )
     return
 
+## Product Recommendation: 
+# identifies a user's interests based on their browsing history items and recommends only the best-selling ones to them
 def history_recommendations(userid):
     rows = session.execute(
         f"""
@@ -42,9 +45,12 @@ def history_recommendations(userid):
     )
     top_10_products = Counter(map(lambda row: row.productid, rows)).most_common(10)
 
+    # If the user has no browsing history, return a list as a second strategy.
+    # Return the top ten products purchased by the most users without any filters.
     if len(top_10_products) == 10:
         return [product[0] for product in top_10_products], "personalized"
     else:
+        # These products should be from orders placed last month.
         current_date = datetime.now()
         one_month_ago = current_date - timedelta(days=30)
         two_months_ago = current_date - timedelta(days=60)

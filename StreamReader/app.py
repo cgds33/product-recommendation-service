@@ -9,6 +9,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Connect to the Kafka server where you'll be capturing the data.
 KAFKA_SERVER = [os.getenv("KAFKA_HOST") + ":" + os.getenv("KAFKA_PORT")]
 TOPIC_NAME = os.getenv("TOPIC_NAME")
 
@@ -17,6 +18,7 @@ consumer = KafkaConsumer(TOPIC_NAME,
     value_deserializer=lambda x: json.loads(x.decode('utf-8')),
 )
 
+# Connect to the Cassandra cluster where you'll be saving the data.
 CASSANDRA_CLUSTER = str(os.getenv("CASSANDRA_CLUSTER"))
 CASSANDRA_PORT = str(os.getenv("CASSANDRA_PORT"))
 
@@ -28,6 +30,7 @@ def main():
         kafka_message = message.value
         timestamp = datetime.fromtimestamp(int(time.time()))
 
+        # Load product views data into Cassandra
         session.execute(
             """
             INSERT INTO productViews.product_views (messageid, event, userid, productid, source, messagetime)

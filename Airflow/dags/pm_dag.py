@@ -9,7 +9,12 @@ from airflow.operators.python_operator import PythonOperator
 from cassandra.cluster import Cluster
 import psycopg2
 
+## Contains a DAG (Directed Acyclic Graph) to perform scheduled tasks in Airflow.
+
+# Function containing scheduled tasks.
 def etl_process():
+
+    # Connect to PostgreSQL
     conn = psycopg2.connect(
         dbname="product_views",
         user="postgres",
@@ -18,9 +23,11 @@ def etl_process():
     )
     cur_postgres = conn.cursor()
 
+    # Connect to Cassandra
     cluster = Cluster(['cassandra'])
     session = cluster.connect('productviews')
 
+    # Fetch order data from PostgreSQL
     cur_postgres.execute("""
         SELECT 
             order_items.id,
@@ -36,6 +43,7 @@ def etl_process():
     """)
     rows = cur_postgres.fetchall()
 
+    # Load order data into Cassandra
     timestamp = datetime.fromtimestamp(int(time.time()))
     for row in rows:
         session.execute("""
@@ -49,7 +57,7 @@ def etl_process():
     cluster.shutdown()
 
 
-# Airflow DAG 
+# Airflow DAG Args
 default_args = {
     'owner': 'airflow',
     'depends_on_past': False,
@@ -58,6 +66,7 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
+# Airflow DAG 
 dag = DAG(
     'etl_dag',
     default_args=default_args,
@@ -65,7 +74,7 @@ dag = DAG(
     schedule_interval='@hourly',
 )
 
-
+# ETL Process
 transform_load_data = PythonOperator(
     task_id='transform_load_data',
     python_callable=etl_process,
