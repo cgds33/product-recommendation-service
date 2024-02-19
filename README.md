@@ -35,10 +35,10 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 **product_views**
 
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-| - messageid TEXT - - | - event TEXT - - | - userid TEXT - - 
-| - productid TEXT - - | - source TEXT - - | - messagetime TIMESTAMP - - |
-- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+| messageid TEXT | event TEXT | userid TEXT  
+| productid TEXT | source TEXT | messagetime TIMESTAMP |
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
 
 **order_views**
