@@ -18,7 +18,8 @@ psql -v ON_ERROR_STOP=1 --username "$POSTGRES_USER" --dbname "product_views" <<-
 
 	CREATE TABLE orders (
 		order_id VARCHAR(255) PRIMARY KEY,
-		user_id VARCHAR(255)
+		user_id VARCHAR(255),
+		timestamp INT
 	);
 
 	CREATE TABLE order_items (

@@ -1,6 +1,6 @@
-import os
 import time
-from datetime import datetime, timedelta
+#import datetime
+from datetime import timedelta, datetime
 
 from airflow import DAG
 from airflow.operators.bash_operator import BashOperator
@@ -27,6 +27,12 @@ def etl_process():
     cluster = Cluster(['cassandra'])
     session = cluster.connect('productviews')
 
+    # Since the DAG will be triggered daily, a daily timestamp value is calculated
+    now = datetime.now()
+    last_month = now - timedelta(days=30)
+    last_month_unix = int(last_month.timestamp())
+    now_unix = int(now.timestamp())
+
     # Fetch order data from PostgreSQL
     cur_postgres.execute("""
         SELECT 
@@ -35,17 +41,21 @@ def etl_process():
             orders.user_id,
             products.product_id,
             products.category_id,
-            order_items.quantity
+            order_items.quantity,
+            orders.timestamp
         FROM 
             order_items
         INNER JOIN orders ON order_items.order_id = orders.order_id
         INNER JOIN products ON order_items.product_id = products.product_id
-    """)
+        WHERE 
+            orders.timestamp >= %s AND
+            orders.timestamp < %s
+    """, (last_month_unix, now_unix))
     rows = cur_postgres.fetchall()
 
     # Load order data into Cassandra
-    timestamp = datetime.fromtimestamp(int(time.time()))
     for row in rows:
+        timestamp = datetime.fromtimestamp(int(row[6]))
         session.execute("""
             INSERT INTO order_views (orderid, userid, productid, categoryid, quantity, messagetime)
             VALUES (%s, %s, %s, %s, %s, %s)
@@ -71,7 +81,7 @@ dag = DAG(
     'etl_dag',
     default_args=default_args,
     description='ETL process DAG',
-    schedule_interval='@hourly',
+    schedule_interval='@monthly',
 )
 
 # ETL Process

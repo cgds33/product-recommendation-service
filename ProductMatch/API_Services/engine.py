@@ -20,6 +20,9 @@ def get_nav_history_latest(userid):
     products = []
     for row in sorted(rows, key=lambda x: x.messagetime, reverse=True)[:10]:
         products.append(row.productid)
+    
+    if len(products) < 5:
+        return []
     return products
 
 ## Delete history: A function where they can delete a product from their history
@@ -47,7 +50,7 @@ def history_recommendations(userid):
 
     # If the user has no browsing history, return a list as a second strategy.
     # Return the top ten products purchased by the most users without any filters.
-    if len(top_10_products) == 10:
+    if len(top_10_products) >= 5:
         return [product[0] for product in top_10_products], "personalized"
     else:
         # These products should be from orders placed last month.
@@ -57,7 +60,11 @@ def history_recommendations(userid):
 
         rows = session.execute("SELECT * FROM order_views ALLOW FILTERING")
 
-        filtered_rows = [row for row in rows if two_months_ago <= row.messagetime < one_month_ago]
-        product_ids = [row.productid for row in filtered_rows]
+        product_ids = []
+        for row in rows:
+            if two_months_ago <= row.messagetime < one_month_ago:
+                product_ids.append(row.productid)
 
+        if len(product_ids) < 5:
+            return [], "non-personalized"
         return [product_id for product_id, _ in Counter(product_ids).most_common(10)], "non-personalized"
