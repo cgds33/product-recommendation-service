@@ -108,7 +108,7 @@ During the ETL process, data is extracted from PostgreSQL. There are 3 tables in
 
 <br>
 
-### .Devcontainer 
+### Devcontainer 
 
 All containers contain devcontainer files, enabling remote connections from within VSCode. No additional effort is needed for testing and new developments. To start the devcontainer, first install the devcontainer extension in the VSCode application. Then follow these steps:
 
