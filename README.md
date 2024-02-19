@@ -48,6 +48,16 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 Airflow operates with all initialization configurations. Both scheduling settings and the web server come active. Additionally, the Python file that will manage ETL processes is included and starts running when the container is up.
 
+
+Navigate to the following URL for the Airflow web server interface:
+
+```http://localhost:8080/login/```
+
+Username: airflow
+Password: airflow
+
+You can manage your ETL processes from this interface.
+
 <br>
 
 ### Kafka
@@ -59,6 +69,11 @@ Kafka is the pipeline that transfers the click data it reads to the database. He
 ### Django
 
 Django contains two endpoints facilitating the retrieval of recommendation data.
+
+Django URL: 
+
+```http://localhost:8000/```
+
 
 They are as follows:
 
@@ -93,6 +108,7 @@ During the ETL process, data is extracted from PostgreSQL. There are 3 tables in
 
 ## Test And Development
 
+
 ### .Devcontainer 
 
 All containers contain devcontainer files, enabling remote connections from within VSCode. No additional effort is needed for testing and new developments. To start the devcontainer, first install the devcontainer extension in the VSCode application. Then follow these steps:
@@ -104,6 +120,7 @@ All containers contain devcontainer files, enabling remote connections from with
 ### Postman Collections
 
 
+
 The Postman collections for testing API endpoints are available within the repository. The folder structure is as follows:
 
 
@@ -112,12 +129,18 @@ The Postman collections for testing API endpoints are available within the repos
 
 You can find the Postman collections in the "Postman" folder located within the "Documentation" directory of the repository.
 
+
+### Test Data Generator
+
+
+
+This service located in the /Test folder is responsible for generating data during unit tests and loading it into PostgreSQL. Afterwards, the generated data can be loaded into Cassandra through ETL processes. This way, data suitable for querying from endpoints can be obtained by testing PostgreSQL configurations, ETL processes, Airflow, and Cassandra tables.
+
+-The generated data is stored according to the PK and REF structure.
+-To migrate the generated data to Cassandra, a DAG must be triggered in Airflow.
+
+
+
 <br><br><br><br>
-
-
-
-
-
-
 
 
