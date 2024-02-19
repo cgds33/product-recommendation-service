@@ -91,6 +91,8 @@ You can manage your ETL processes from this interface.
 
 Kafka is the pipeline that transfers the click data it reads to the database. Here, the queued data arrives at the container responsible for loading data into Cassandra.
 
+**Kafka Topic Name:** *product_views*
+
 <br>
 
 ### Django
