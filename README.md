@@ -13,11 +13,7 @@ docker-compose up -d --build
 
 ## Architecture
 
-
-
 <br><br>
-
-
 
 ![Architecture](/Documantation/Drawings/product_match.png)
 
