@@ -37,7 +37,7 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 | - messageid TEXT - | - event TEXT - - - | - userid TEXT - - - - - - -
-| - productid TEXT - | - source TEXT - - -| - messagetime TIMESTAMP - |
+| - productid TEXT - | - source TEXT - - - | - messagetime TIMESTAMP - |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 
