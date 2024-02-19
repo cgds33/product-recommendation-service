@@ -39,6 +39,17 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 | - messageid TEXT - - | - event TEXT - - | - userid TEXT - - 
 | - productid TEXT - - | - source TEXT - - | - messagetime TIMESTAMP - - |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+<br>
+
+Example field:
+- messageid: "10fd3d57-89c3-4845-8bf8-4c417180ab4d" (uuid string)
+- event: "ProductView" (str)
+- userid: "user-59" (str)
+- productid: "product-309" (str)
+- source: "mobile-web" (str)
+- messagetime: "2024-02-19 05:11:12+0000" (datetime string)
+
+<br>
 
 
 **order_views**
@@ -47,6 +58,16 @@ Cassandra contains 2 tables. One of the tables contains visited products, while 
 | - orderid TEXT - - | - productid TEXT - - | - categoryid TEXT - - 
 | - quantity INT - - | - userid TEXT - - | - messagetime TIMESTAMP - - |
 - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  - 
+
+<br>
+
+Example field:
+- orderid: "db03f3e6-8d3a-4f37-a754-8668b4ff1fd3" (uuid string)
+- productid: "product-99" (str)
+- categoryid: "category-1" (str)
+- quantity: 3 (int)
+- userid: "user-59" (str)
+- messagetime: "2024-02-19 05:11:12+0000" (datetime string)
 
 <br>
 
