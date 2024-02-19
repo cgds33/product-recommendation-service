@@ -76,7 +76,7 @@ Default Django URL:
 
 ```http://localhost:8000/api/v1/```
 
-<br><br>
+<br>
 
 They are as follows:
 
@@ -89,7 +89,7 @@ They are as follows:
 **DELETE Method**
 - Receives the "user-id" and "product-id" parameters in the header.
 
-<br><br>
+<br>
 
 **/api/{{api_version}}/user_history_recommendations/** *(HTTP: GET)*
 
