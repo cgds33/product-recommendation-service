@@ -70,14 +70,15 @@ Kafka is the pipeline that transfers the click data it reads to the database. He
 
 Django contains two endpoints facilitating the retrieval of recommendation data.
 
+<br>
+
 Default Django URL: 
 
 ```http://localhost:8000/api/v1/```
 
+<br><br>
 
 They are as follows:
-
-<br>
 
 **/api/{{api_version}}/user_nav_history_latest_products/** *(HTTP: GET, DELETE)*
 
@@ -88,7 +89,7 @@ They are as follows:
 **DELETE Method**
 - Receives the "user-id" and "product-id" parameters in the header.
 
-<br>
+<br><br>
 
 **/api/{{api_version}}/user_history_recommendations/** *(HTTP: GET)*
 
