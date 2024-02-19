@@ -70,9 +70,9 @@ Kafka is the pipeline that transfers the click data it reads to the database. He
 
 Django contains two endpoints facilitating the retrieval of recommendation data.
 
-Django URL: 
+Default Django URL: 
 
-```http://localhost:8000/```
+```http://localhost:8000/api/v1/```
 
 
 They are as follows:
@@ -108,6 +108,7 @@ During the ETL process, data is extracted from PostgreSQL. There are 3 tables in
 
 ## Test And Development
 
+<br>
 
 ### .Devcontainer 
 
@@ -116,6 +117,7 @@ All containers contain devcontainer files, enabling remote connections from with
 - Open the Command Palette: Press Ctrl+Shift+P (Windows/Linux) or Cmd+Shift+P (Mac) to open the Command Palette.
 - Open the Devcontainer: Search for the "Remote-Containers: Open Folder in Container" command in the Command Palette and select it. This command will open the relevant service in the devcontainer.
 
+<br>
 
 ### Postman Collections
 
@@ -124,17 +126,18 @@ All containers contain devcontainer files, enabling remote connections from with
 The Postman collections for testing API endpoints are available within the repository. The folder structure is as follows:
 
 
-*/Documantation/Postman*
+```/Documantation/Postman```
 
 
 You can find the Postman collections in the "Postman" folder located within the "Documentation" directory of the repository.
 
+<br>
 
 ### Test Data Generator
 
 
 
-This service located in the /Test folder is responsible for generating data during unit tests and loading it into PostgreSQL. Afterwards, the generated data can be loaded into Cassandra through ETL processes. This way, data suitable for querying from endpoints can be obtained by testing PostgreSQL configurations, ETL processes, Airflow, and Cassandra tables.
+This service located in the ```/Test``` folder is responsible for generating data during unit tests and loading it into PostgreSQL. Afterwards, the generated data can be loaded into Cassandra through ETL processes. This way, data suitable for querying from endpoints can be obtained by testing PostgreSQL configurations, ETL processes, Airflow, and Cassandra tables.
 
 -The generated data is stored according to the PK and REF structure.
 -To migrate the generated data to Cassandra, a DAG must be triggered in Airflow.
