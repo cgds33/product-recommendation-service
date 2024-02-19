@@ -68,9 +68,6 @@ Kafka is the pipeline that transfers the click data it reads to the database. He
 
 ### Django
 
-Django contains two endpoints facilitating the retrieval of recommendation data.
-
-<br>
 
 Default Django URL: 
 
@@ -78,7 +75,7 @@ Default Django URL:
 
 <br>
 
-They are as follows:
+Django contains two endpoints facilitating the retrieval of recommendation data. They are as follows:
 
 **/api/{{api_version}}/user_nav_history_latest_products/** *(HTTP: GET, DELETE)*
 
